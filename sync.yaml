@@ -3,7 +3,7 @@ name: Sync to public repo
 on:
   push:
     paths:
-      - 'img/'
+      - './img/**'
 
 jobs:
   sync:
