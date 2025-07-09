@@ -42,8 +42,6 @@ Then you can add your auto-workflow scripts in .github/workflows.
 4. Click **"Generate token"**
    ✅ **Copy the token** immediately — it will only be shown once!
 
----
-
 ### 2.2 Add the Token as a Secret in Your Private Repo
 
 1. Open your **private repository**
