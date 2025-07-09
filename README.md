@@ -15,7 +15,7 @@ mkdir workflows
 ```
 Then you can add your auto-workflow scripts in .github/workflows.
 
-## 2. settings to sync some files in private to public
+## 2. settings for sync some files in private to public
 
 ### 2.1 Generate PAT
 
