@@ -1,0 +1,39 @@
+name: Sync to public repo
+
+on:
+  push:
+    paths:
+      - 'img/'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+
+      - name: Setup git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone public repo
+        run: |
+          git clone https://x-access-token:${{ secrets.PUBLIC_REPO_TOKEN }}@github.com/your-org-or-user/public-repo.git public-repo
+
+      - name: Get latest commit author
+        id: author
+        run: |
+          echo "name=$(git log -1 --pretty=format:'%an')" >> $GITHUB_OUTPUT
+
+      - name: Sync img files
+        run: |
+          rsync -av --delete img/ public-repo/img/
+
+      - name: Commit and push
+        working-directory: public-repo
+        run: |
+          git add .
+          git commit -m "Sync from private repo at $(date '+%Y-%m-%d %H:%M:%S') by ${{ steps.author.outputs.name }}" || echo "No changes to commit"
+          git push
